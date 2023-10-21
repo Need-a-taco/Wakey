@@ -51,12 +51,12 @@ const SetAlarmBtn = (props) => {
 
   return (
     <SafeAreaView>
-        {/* <Link href="screens/goodnight" asChild> */}
+        <Link href="screens/goodnight" asChild>
         <TouchableOpacity
         style={styles.button} onPress={switchGoodnight}>
         <Text style={styles.loginText}>{props.name} Alarm</Text>
       </TouchableOpacity>
-        {/* </Link> */}
+        </Link>
     </SafeAreaView>
   );
 };
