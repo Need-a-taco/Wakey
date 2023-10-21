@@ -67,8 +67,8 @@ const Home = () => {
       )}
       {currPage == "join" && (
         <View>
-          <JoinCode />
-          <SetAlarmBtn name="Join" />
+          <JoinCode onCodeChange={setJoinCodeValue}/>
+          <SetAlarmBtn name="Join" code={joinCodeValue}/>
         </View>
       )}
       {/*<ScrollView>
