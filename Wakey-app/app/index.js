@@ -2,7 +2,8 @@ import { View, Text, SafeAreaView } from "react-native";
 import Clock from "../components/homepage/clock";
 import { Stack, useRouter } from "expo-router";
 import InputField from "../components/homepage/inputField";
-import SetAlarm from "../components/homepage/setAlarm";
+import TimePicker from "../components/homepage/timePicker";
+import SetAlarmBtn from "../components/homepage/setAlarmBtn";
 
 const Home = () => {
   return (
@@ -16,7 +17,8 @@ const Home = () => {
       />
       <Clock />
       <InputField />
-      <SetAlarm />
+      <TimePicker />
+      <SetAlarmBtn name="Set"/>
     </SafeAreaView>
   );
 };
