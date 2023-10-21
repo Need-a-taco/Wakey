@@ -13,6 +13,7 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../config/initSupabase';
 
+
 const styles = StyleSheet.create({
     textPrompt: {
         color: "white",
