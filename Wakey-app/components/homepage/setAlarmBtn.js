@@ -36,7 +36,7 @@ const SetAlarmBtn = (props) => {
     button:{
         marginRight:50,
         marginLeft:50,
-       marginTop:50,
+        marginTop:50,
         paddingTop:10,
         paddingBottom:10,
         backgroundColor:'#4A5358',
