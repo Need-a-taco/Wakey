@@ -9,13 +9,13 @@ import fart from "../../assets/alarmSFX/fart.wav";
 const styles = StyleSheet.create({
   buttonText: (active) => ({
     color: "white",
-    fontSize: 15,
+    fontSize: 18,
   }),
   buttonContainer: (active) => ({
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
-    width: 100,
+    width: 150,
     borderColor: active ? "white" : "#7e8691",
     borderWidth: 0.5,
     justifyContent: "center",
@@ -87,7 +87,6 @@ const SoundButton = ({ buttonType }) => {
       require("../../assets/alarmSFX/siren.wav")
     );
     setSound(sound);
-
     await sound.playAsync();
   }
   async function playBruh() {
