@@ -51,7 +51,7 @@ const WakeyWakey = () => {
   return (
     <View style= {styles.container}>
       <View  style= {styles.wrapper}>  
-        <Link href="soundboard/soundboard" asChild>
+        <Link href="screens/soundboard" asChild>
           <TouchableWithoutFeedback>
             <Animated.Text style={[styles.text, { color: textColor }]}>
               WAKEY WAKEY
