@@ -1,17 +1,13 @@
 import { View, Text, SafeAreaView } from "react-native";
 import Clock from "../components/homepage/clock";
-
+import { Stack, useRouter } from "expo-router";
 
 const Home = () => {
   return (
     <View>
       <Text>
-        Goodnight!
+        Goodnight, sleep tight, don't let the bed bugs bite!
       </Text>
-      <Text>
-        bruh
-      </Text>
-      <Text>Peepee wee</Text>
     </View>
   );
 };
