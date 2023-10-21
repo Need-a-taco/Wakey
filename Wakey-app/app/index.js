@@ -14,7 +14,7 @@ import SetAlarmBtn from "../components/homepage/setAlarmBtn";
 import TimePicker from "../components/homepage/timePicker";
 import { useState } from "react";
 import { Link } from "expo-router";
-import SoundBoard from "../components/soundboard/soundboard";
+import SoundBoard from "./screens/soundboard";
 
 const styles = StyleSheet.create({
   buttonText: (buttonType, item) => ({

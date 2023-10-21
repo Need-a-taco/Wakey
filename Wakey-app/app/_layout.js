@@ -17,6 +17,13 @@ const Layout = () => {
           presentation: 'modal'
         }}
         />
+        <Stack.Screen 
+        name="screens/soundboard" 
+        options={{
+          headerShown: false,
+          presentation: 'modal'
+        }}
+        />
     </Stack>
   );
 };

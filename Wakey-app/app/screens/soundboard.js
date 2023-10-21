@@ -7,14 +7,17 @@ import {
   useWindowDimensions,
   Image,
   TextInput,
+  SafeAreaView
 } from "react-native";
-import SoundButton from "./soundButtons";
+import SoundButton from "../../components/soundboard/soundButtons";
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
+    backgroundColor: "#1d1e1f",
+    flex: 1
   },
   smallText: {
     color: "white",
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
 
 const SoundBoard = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Text style={styles.timeText}>It's time to</Text>
         <Text style={styles.bigText}>Wake Up</Text>
@@ -57,7 +60,7 @@ const SoundBoard = () => {
           <SoundButton buttonType={"fart"} />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default SoundBoard;
