@@ -3,7 +3,13 @@ import { View, Text } from "react-native";
 const Home = () => {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>
+        Goodnight!
+      </Text>
+      <Text>
+        bruh
+      </Text>
+      <Text>Peepee wee</Text>
     </View>
   );
 };
