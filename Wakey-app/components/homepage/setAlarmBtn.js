@@ -4,12 +4,28 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link } from "expo-router";
+import 'react-native-url-polyfill/auto'
+import { createClient } from '@supabase/supabase-js';
+import { REACT_NATIVE_SUPABASE_URL, SUPABASE_KEY } from "@env";
 
+
+const supabaseUrl = REACT_NATIVE_SUPABASE_URL;
+const supabaseKey = SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SetAlarmBtn = (props) => {
-//   const switchGoodnight = (event, selectedDate) => {
-//     console.log("test");
-//   };
+  const switchGoodnight = async (event) => {
+    const { data, error } = await supabase.from('alarms').insert([
+    { 
+        id: 2,
+        alarm_code: 'sdfdsf',
+        set_time: ((new Date()).toISOString()).toLocaleString('zh-TW'),
+        wakey_time: ((new Date()).toISOString()).toLocaleString('zh-TW')
+    },
+    ])
+    .select();
+    console.log(data, error)
+  };
 
   const styles = StyleSheet.create({
     button:{
@@ -35,9 +51,9 @@ const SetAlarmBtn = (props) => {
 
   return (
     <SafeAreaView>
-        <Link href="screens/wakeywakey" asChild>
+        <Link href="screens/goodnight" asChild>
         <TouchableOpacity
-        style={styles.button}>
+        style={styles.button} onPress={switchGoodnight}>
         <Text style={styles.loginText}>{props.name} Alarm</Text>
       </TouchableOpacity>
         </Link>
