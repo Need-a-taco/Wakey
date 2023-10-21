@@ -36,13 +36,6 @@ const Home = () => {
   const [currPage, setCurrPage] = useState("custom");
   return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: "#1d1e1f" },
-          headerShadowVisible: false,
-          headerTitle: "",
-        }}
-      />
       <Clock />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <TouchableOpacity

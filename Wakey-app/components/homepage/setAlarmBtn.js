@@ -3,12 +3,13 @@ import { View, Text } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Link } from "expo-router";
 
 
 const SetAlarmBtn = (props) => {
-  const switchGoodnight = (event, selectedDate) => {
-    console.log("test");
-  };
+//   const switchGoodnight = (event, selectedDate) => {
+//     console.log("test");
+//   };
 
   const styles = StyleSheet.create({
     button:{
@@ -34,11 +35,12 @@ const SetAlarmBtn = (props) => {
 
   return (
     <SafeAreaView>
-      <TouchableOpacity
-        onPress={switchGoodnight}
+        <Link href="screens/goodnight" asChild>
+        <TouchableOpacity
         style={styles.button}>
         <Text style={styles.loginText}>{props.name} Alarm</Text>
       </TouchableOpacity>
+        </Link>
     </SafeAreaView>
   );
 };
