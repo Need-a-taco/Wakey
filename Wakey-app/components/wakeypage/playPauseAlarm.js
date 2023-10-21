@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, component } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { Audio } from "expo-av";
 import { Link } from "expo-router";
+import SocketHandler from "../socketHandler"; // Import your SocketHandler class
+import { SoundPlayer } from "react-native-sound";
 
 const styles = StyleSheet.create({
   container: {
@@ -31,71 +33,89 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#C3C3C3",
-
     fontWeight: "bold",
     fontSize: 20,
   },
 });
 
-const PlayPauseAlarm = () => {
-  const [onLoadText, setText] = useState("");
-  const [initialLoad, setInitialLoad] = useState(true);
+class PlayPauseAlarm extends Component {
+  constructor() {
+    super();
+    this.mSocket = SocketHandler.sharedInstance.getSocket();
+    this.initialLoad = true;
 
-  const onScreenLoad = () => {
-    setText("");
-    playAlarm();
-  };
-  useEffect(() => {
-    onScreenLoad();
-  }, []);
-
-  const [sound, setSound] = useState();
-
-  async function playAlarm() {
-    console.log("Loading Sound");
-    const { sound } = await Audio.Sound.createAsync(
-      require("../../assets/alarmSFX/AlarmOne.wav")
-    );
-    setSound(sound);
-
-    await sound.setIsLoopingAsync(true);
-    await sound.playAsync();
-    //await sound.unloadAsync();
-  }
-  async function stopAlarm() {
-    await sound.unloadAsync();
-    setSound(undefined);
-    setInitialLoad(false);
+    // Initialize sound player
+    SoundPlayer.setCategory("Playback");
   }
 
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
+  componentDidMount() {
+    SocketHandler.sharedInstance.establishConnection();
+
+    // Rings alarm
+    this.alarm();
+
+    // Checks for input from the server before playing sound
+    this.mSocket.on("trumpet", () => this.playSound("trumpet"));
+    this.mSocket.on("siren", () => this.playSound("siren"));
+    this.mSocket.on("bruh", () => this.playSound("bruh"));
+    this.mSocket.on("fart", () => this.playSound("fart"));
+  }
+
+  alarm() {
+    const alarmSound = new Sound("AlarmOne.wav", Sound.MAIN_BUNDLE, (error) => {
+      if (!error) {
+        alarmSound.setNumberOfLoops(-1); // Infinite loop
+        alarmSound.play();
+      }
+    });
+  }
+
+  // Play various sound effects
+  playSound(audioName) {
+    const soundEffect = new Sound(
+      `${audioName}.wav`,
+      Sound.MAIN_BUNDLE,
+      (error) => {
+        if (!error) {
+          soundEffect.play();
         }
-      : undefined;
-  }, [sound]);
+      }
+    );
+  }
 
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity>
-        <Text>{onLoadText}</Text>
-      </TouchableOpacity>
-      {initialLoad ? (
-        <TouchableOpacity onPress={stopAlarm} style={styles.button}>
-          <Text style={styles.text}>I'm Awake</Text>
+  // Stops the alarm
+  endAlarm() {
+    if (alarmSound) {
+      alarmSound.stop();
+      alarmSound.release();
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity>
+          <Text>hi</Text>
         </TouchableOpacity>
-      ) : (
-        <Link href="screens/soundboard" asChild>
+        {initialLoad ? (
           <TouchableOpacity
+            onPress={() => this.endAlarm()}
             style={styles.button}
-            onPress={() => setInitialLoad(false)}
           >
-            <Text style={styles.text}>Wake Up Friends</Text>
+            <Text style={styles.text}>I'm Awake</Text>
           </TouchableOpacity>
-        </Link>
-      )}
-    </View>
-  );
-};
+        ) : (
+          <Link href="screens/soundboard" asChild>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={(this.initialLoad = false)}
+            >
+              <Text style={styles.text}>Wake Up Friends</Text>
+            </TouchableOpacity>
+          </Link>
+        )}
+      </View>
+    );
+  }
+}
 export default PlayPauseAlarm;
