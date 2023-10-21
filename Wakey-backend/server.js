@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
 
   socket.on("trumpet", () => {
     io.emit("trumpet");
+    console.log("trumpet");
   });
 
   socket.on("siren", () => {
