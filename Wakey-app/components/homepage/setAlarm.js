@@ -27,7 +27,7 @@ const SetAlarm = () => {
         display={'spinner'}
         is24Hour={true}
         onChange={changedTime}
-        themeVariant="light"
+        themeVariant="dark"
       />
     </SafeAreaView>
   );
