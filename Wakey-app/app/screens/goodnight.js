@@ -9,8 +9,12 @@ import {
     Image,
     TextInput,
   } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 
 const Goodnight = () => {
+    const params = useLocalSearchParams();
+    const { code } = params;
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
         <Clock />
