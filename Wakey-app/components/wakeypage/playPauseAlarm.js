@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PlayPauseAlarm = (myCode) => {
+const PlayPauseAlarm = ({myCode}) => {
   const [onLoadText, setText] = useState("");
   const [initialLoad, setInitialLoad] = useState(true);
   const mSocket = SocketHandler.sharedInstance.getSocket();
@@ -49,23 +49,24 @@ const PlayPauseAlarm = (myCode) => {
     SocketHandler.sharedInstance.establishConnection();
 
     mSocket.on("trumpet", (data) => {
-      if (data.code === myCode) {
+      console.log("HERHERHERHE", data, myCode);
+      if (data === myCode) {
         playSound("trumpet");
       }
     });
     mSocket.on("siren", (data) => {
-      if (data.code === myCode) {
+      if (data === myCode) {
         playSound("siren");
       }
     });
     mSocket.on("bruh", (data) => {
-      if (data.code === myCode) {
+      if (data === myCode) {
         playSound("bruh");
       }
     });
 
     mSocket.on("fart", (data) => {
-      if (data.code === myCode) {
+      if (data === myCode) {
         playSound("fart");
       }
     });

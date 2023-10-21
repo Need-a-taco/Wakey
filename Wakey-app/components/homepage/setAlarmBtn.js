@@ -6,11 +6,8 @@ import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import "react-native-url-polyfill/auto";
 import { createClient } from "@supabase/supabase-js";
-import { REACT_NATIVE_SUPABASE_URL, SUPABASE_KEY } from "@env";
+import { supabase } from "../../config/initSupabase";
 
-const supabaseUrl = REACT_NATIVE_SUPABASE_URL;
-const supabaseKey = SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SetAlarmBtn = (props) => {
   const switchGoodnight = async (event) => {
@@ -58,7 +55,7 @@ const SetAlarmBtn = (props) => {
     <SafeAreaView>
       <Link
         href={{
-          pathname: "/screens/soundboard",
+          pathname: "/screens/goodnight",
           params: { code: props.code },
         }}
         asChild

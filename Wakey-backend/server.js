@@ -15,20 +15,20 @@ const io = socket(server);
 io.on("connection", (socket) => {
   console.log("New socket connection: " + socket.id);
 
-  socket.on("trumpet", () => {
-    io.emit("trumpet");
-    console.log("trumpet");
+  socket.on("trumpet", (data) => {
+    io.emit("trumpet", data);
+    console.log("trumpet",data);
   });
 
-  socket.on("siren", () => {
-    io.emit("siren");
+  socket.on("siren", (data) => {
+    io.emit("siren", data);
   });
 
-  socket.on("bruh", () => {
-    io.emit("bruh");
+  socket.on("bruh", (data) => {
+    io.emit("bruh", data);
   });
 
-  socket.on("fart", () => {
-    io.emit("fart");
+  socket.on("fart", (data) => {
+    io.emit("fart", data);
   });
 });

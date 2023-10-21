@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
 const WakeyWakey = () => {
   const params = useLocalSearchParams();
-  const { myCode } = params;
+  const { code } = params;
   // colors we have
   const colors = ["white", "red", "green", "green", "red", "white"];
   // index of colors
@@ -64,7 +64,7 @@ const WakeyWakey = () => {
         <Link
           href={{
             pathname: "/screens/soundboard",
-            params: { code: myCode },
+            params: { code: code },
           }}
           asChild
         >
@@ -75,7 +75,7 @@ const WakeyWakey = () => {
           </TouchableWithoutFeedback>
         </Link>
       </View>
-      <PlayPauseAlarm myCode={myCode} />
+      <PlayPauseAlarm myCode={code} />
     </View>
   );
 };

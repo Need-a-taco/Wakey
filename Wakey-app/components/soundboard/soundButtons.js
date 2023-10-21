@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 });
 
 const SoundButton = ({ buttonType, alarmCode }) => {
+  const code = alarmCode;  
   var mSocket = SocketHandler.sharedInstance.getSocket();
   SocketHandler.sharedInstance.establishConnection(); // not sure this will work without component mount
 
