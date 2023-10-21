@@ -9,7 +9,8 @@ import Clock from "../components/homepage/clock";
 import { Stack, useRouter } from "expo-router";
 import CustomCode from "../components/homepage/customCode";
 import JoinCode from "../components/homepage/joinCode";
-import SetAlarm from "../components/homepage/setAlarm";
+import SetAlarmBtn from "../components/homepage/setAlarmBtn";
+import TimePicker from "../components/homepage/timePicker";
 import { useState } from "react";
 
 const styles = StyleSheet.create({
@@ -24,11 +25,11 @@ const styles = StyleSheet.create({
     width: 100,
     marginBottom: 30,
     borderColor: buttonType === item ? "white" : "#7e8691",
-    borderWidth: 1,
+    //borderWidth: 0.5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 13,
-    backgroundColor: buttonType === item ? "gray" : null,
+    backgroundColor: buttonType === item ? "#4A5358" : null,
   }),
 });
 const Home = () => {
@@ -60,12 +61,14 @@ const Home = () => {
       {currPage == "custom" && (
         <View>
           <CustomCode />
-          <SetAlarm />
+          <TimePicker />
+          <SetAlarmBtn name="Set" />
         </View>
       )}
       {currPage == "join" && (
         <View>
           <JoinCode />
+          <SetAlarmBtn name="Join" />
         </View>
       )}
     </SafeAreaView>
