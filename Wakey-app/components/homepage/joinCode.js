@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-const InputField = () => {
+const JoinCode = () => {
   const [alarmCode, setAlarmCode] = useState("");
 
   return (
     <View style={styles.searchContainer}>
-      <Text style={styles.textPrompt}>Alarm Code:</Text>
+      <Text style={styles.textPrompt}>Join Alarm:</Text>
       <View style={styles.searchWrapper}>
         <TextInput
           style={styles.searchInput}
@@ -61,4 +61,4 @@ const InputField = () => {
   );
 };
 
-export default InputField;
+export default JoinCode;
