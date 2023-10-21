@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-const JoinCode = () => {
+const JoinCode = (props) => {
   const [alarmCode, setAlarmCode] = useState("");
 
   return (
@@ -53,7 +53,11 @@ const JoinCode = () => {
         <TextInput
           style={styles.searchInput}
           value={alarmCode}
-          onChangeText={(text) => setAlarmCode(text)}
+          onChangeText={(text) => {
+            setAlarmCode(text);
+            props.onCodeChange(text);
+          }
+          }
           placeholder="Enter alarm code"
         />
       </View>
