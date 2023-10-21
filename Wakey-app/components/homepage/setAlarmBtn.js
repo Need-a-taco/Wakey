@@ -6,28 +6,26 @@ import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import "react-native-url-polyfill/auto";
 import { createClient } from "@supabase/supabase-js";
-import { REACT_NATIVE_SUPABASE_URL, SUPABASE_KEY } from "@env";
+import { supabase } from "../../config/initSupabase";
 
-const supabaseUrl = REACT_NATIVE_SUPABASE_URL;
-const supabaseKey = SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SetAlarmBtn = (props) => {
   const switchGoodnight = async (event) => {
     if (props.name === "Set") {
-        // should add a check here to make sure the created code is unique
-        const { data, error } = await supabase.from('alarms').insert([
-            { 
-                alarm_code: props.code,
-                set_time: ((new Date()).toISOString()).toLocaleString('zh-TW'),
-                wakey_time: ((props.alarmTime).toISOString()).toLocaleString('zh-TW')
-            },
-            ])
-            .select();
-            console.log(data, error)
-    }
-    else {
-        // functionality to check if the join code exists in the database
+      // should add a check here to make sure the created code is unique
+      const { data, error } = await supabase
+        .from("alarms")
+        .insert([
+          {
+            alarm_code: props.code,
+            set_time: new Date().toISOString().toLocaleString("zh-TW"),
+            wakey_time: props.alarmTime.toISOString().toLocaleString("zh-TW"),
+          },
+        ])
+        .select();
+      console.log(data, error);
+    } else {
+      // functionality to check if the join code exists in the database
     }
   };
 
@@ -55,16 +53,17 @@ const SetAlarmBtn = (props) => {
 
   return (
     <SafeAreaView>
-        <Link href={{
-            pathname: "/screens/goodnight",
-            params: { code: props.code }
+      <Link
+        href={{
+          pathname: "/screens/goodnight",
+          params: { code: props.code },
         }}
-        asChild>
-        <TouchableOpacity
-        style={styles.button} onPress={switchGoodnight}>
-        <Text style={styles.loginText}>{props.name} Alarm</Text>
-      </TouchableOpacity>
-        </Link>
+        asChild
+      >
+        <TouchableOpacity style={styles.button} onPress={switchGoodnight}>
+          <Text style={styles.loginText}>{props.name} Alarm</Text>
+        </TouchableOpacity>
+      </Link>
     </SafeAreaView>
   );
 };
