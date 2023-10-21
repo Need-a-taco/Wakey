@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
 });
 
 const SoundBoard = () => {
+  const params = useLocalSearchParams();
+  const { code } = params;
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -79,12 +81,12 @@ const SoundBoard = () => {
       </View>
       <View>
         <View style={styles.buttonContainer}>
-          <SoundButton buttonType={"trumpet"} />
-          <SoundButton buttonType={"siren"} />
+          <SoundButton buttonType={"trumpet"} alarmCode={code} />
+          <SoundButton buttonType={"siren"} alarmCode={code} />
         </View>
         <View style={styles.buttonContainer}>
-          <SoundButton buttonType={"bruh"} />
-          <SoundButton buttonType={"fart"} />
+          <SoundButton buttonType={"bruh"} alarmCode={code} />
+          <SoundButton buttonType={"fart"} alarmCode={code} />
         </View>
       </View>
       <View style={styles.button}>
