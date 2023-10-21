@@ -24,6 +24,13 @@ const Layout = () => {
           presentation: 'modal'
         }}
         />
+        <Stack.Screen 
+        name="screens/wakeywakey" 
+        options={{
+          headerShown: false,
+          presentation: 'modal'
+        }}
+        />
     </Stack>
   );
 };

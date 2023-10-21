@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SetAlarmBtn from "../../components/homepage/setAlarmBtn";
 import {
   StyleSheet,
   Text,
@@ -47,17 +48,21 @@ const CustomCode = () => {
   const [alarmCode, setAlarmCode] = useState("");
 
   return (
+    
     <View style={styles.searchContainer}>
       <Text style={styles.textPrompt}>Alarm Code:</Text>
       <View style={styles.searchWrapper}>
         <TextInput
           style={styles.searchInput}
           value={alarmCode}
+          alarmcode={alarmCode}
           onChangeText={(text) => setAlarmCode(text)}
           placeholder="Enter custom alarm code"
         />
+         <SetAlarmBtn alarmCode={alarmCode}/>
       </View>
     </View>
+    
   );
 };
 
