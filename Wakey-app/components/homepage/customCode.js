@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-const CustomCode = () => {
+const CustomCode = (props) => {
   const [alarmCode, setAlarmCode] = useState("");
 
   return (
@@ -53,7 +53,10 @@ const CustomCode = () => {
         <TextInput
           style={styles.searchInput}
           value={alarmCode}
-          onChangeText={(text) => setAlarmCode(text)}
+          onChangeText={(text) => {
+            setAlarmCode(text);
+            props.onCodeChange(text);
+          }}
           placeholder="Enter custom alarm code"
         />
       </View>
