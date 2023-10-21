@@ -10,7 +10,7 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 
 import SoundButton from "../../components/soundboard/soundButtons";
 

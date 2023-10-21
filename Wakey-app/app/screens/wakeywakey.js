@@ -5,7 +5,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Audio } from "expo-av";
 import PlayPauseAlarm from "../../components/wakeypage/playPauseAlarm";
 
