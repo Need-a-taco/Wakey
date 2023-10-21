@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "center",
-    height: 250,
+    height: 200,
   },
   date: {
     color: "#f0f2f5",
