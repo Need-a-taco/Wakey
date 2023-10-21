@@ -1,6 +1,17 @@
-import { SafeAreaView } from "react-native";
-import Clock from "../../components/homepage/clock";
+/* import everything we need. This includes a bunch of stuff from
+the react-native framework, like SafeAreaView to contain our page
+elements, the StyleSheet to help allow us to provide styling code,
+and Text and View to specifically contain our messages displayed
+on the app, in addition to a few other little things. 
+
+Then we also import the Clock that we coded in Clock.js, which is
+a cool streamlined feature from react native! 
+
+Then we have to get supabase set up so we can retrieve and display
+exactly what time the alarm is going to go off at. */
+
 import {
+    SafeAreaView,
     StyleSheet,
     Text,
     View,
@@ -9,6 +20,17 @@ import {
     Image,
     TextInput,
   } from "react-native";
+  import Clock from "../../components/homepage/clock";
+  import { supabase } from '@supabase/supabase-js';
+
+  /*
+// Initialize the database.
+const { db } = supabase; 
+
+let { data: alarms, error } = await supabase
+  .from('alarms')
+  .select('set_time') */
+
 
 const Goodnight = () => {
   return (
