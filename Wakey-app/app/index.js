@@ -1,10 +1,19 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
+import Clock from "../components/homepage/clock";
+import { Stack, useRouter } from "expo-router";
 
 const Home = () => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: "#1d1e1f" },
+          headerShadowVisible: false,
+          headerTitle: "",
+        }}
+      />
+      <Clock />
+    </SafeAreaView>
   );
 };
 
