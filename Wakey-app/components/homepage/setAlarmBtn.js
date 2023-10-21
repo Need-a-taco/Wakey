@@ -17,10 +17,9 @@ const SetAlarmBtn = (props) => {
   const switchGoodnight = async (event) => {
     const { data, error } = await supabase.from('alarms').insert([
     { 
-        id: 2,
-        alarm_code: 'sdfdsf',
+        alarm_code: props.code,
         set_time: ((new Date()).toISOString()).toLocaleString('zh-TW'),
-        wakey_time: ((new Date()).toISOString()).toLocaleString('zh-TW')
+        wakey_time: ((props.alarmTime).toISOString()).toLocaleString('zh-TW')
     },
     ])
     .select();

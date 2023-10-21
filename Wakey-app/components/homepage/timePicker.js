@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { SafeAreaView } from 'react-native';
 
 
-const TimePicker = () => {
+const TimePicker = (prop) => {
   const [date, setDate] = useState(new Date());
 
   const changedTime = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
+    prop.onTimeChange(currentDate);
   };
 
   return (

@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
 });
 const Home = () => {
   const [currPage, setCurrPage] = useState("custom");
+  const [joinCodeValue, setJoinCodeValue] = useState(""); 
+  const [customCodeValue, setCustomCodeValue] = useState("");
+  const [timeValue, setTimeValue] = useState(Date.now());
+
   return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
       <Clock />
@@ -56,9 +60,9 @@ const Home = () => {
       </View>
       {currPage == "custom" && (
         <View>
-          <CustomCode />
-          <TimePicker />
-          <SetAlarmBtn name="Set" />
+          <CustomCode onCodeChange={setCustomCodeValue} />
+          <TimePicker onTimeChange={setTimeValue}/>
+          <SetAlarmBtn name="Set" code={customCodeValue} alarmTime={timeValue} />
         </View>
       )}
       {currPage == "join" && (
