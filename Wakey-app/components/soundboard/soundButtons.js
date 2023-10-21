@@ -5,6 +5,7 @@ import trumpet from "../../assets/alarmSFX/trumpet.wav";
 import siren from "../../assets/alarmSFX/siren.wav";
 import bruh from "../../assets/alarmSFX/bruh.wav";
 import fart from "../../assets/alarmSFX/fart.wav";
+import SocketHandler from "../socketHandler";
 
 const styles = StyleSheet.create({
   buttonText: (active) => ({
@@ -26,6 +27,9 @@ const styles = StyleSheet.create({
 });
 
 const SoundButton = ({ buttonType }) => {
+  var mSocket = SocketHandler.sharedInstance.getSocket();
+  SocketHandler.sharedInstance.establishConnection(); // not sure this will work without component mount
+
   const [active, setActive] = useState(false);
 
   let buttonText = "";
@@ -57,15 +61,19 @@ const SoundButton = ({ buttonType }) => {
     switch (buttonType) {
       case "trumpet":
         playTrumpet();
+        mSocket.emit("trumpet");
         break;
       case "siren":
         playSiren();
+        mSocket.emit("siren");
         break;
       case "bruh":
         playBruh();
+        mSocket.emit("bruh");
         break;
       case "fart":
         playFart();
+        mSocket.emit("fart");
         break;
       default:
         break;
