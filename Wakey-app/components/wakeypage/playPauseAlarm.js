@@ -47,10 +47,10 @@ const PlayPauseAlarm = () => {
     setText("");
     playAlarm();
     SocketHandler.sharedInstance.establishConnection();
-    mSocket.on("trumpet", () => this.playSound("trumpet"));
-    mSocket.on("siren", () => this.playSound("siren"));
-    mSocket.on("bruh", () => this.playSound("bruh"));
-    mSocket.on("fart", () => this.playSound("fart"));
+    mSocket.on("trumpet", () => playSound("trumpet"));
+    mSocket.on("siren", () => playSound("siren"));
+    mSocket.on("bruh", () => playSound("bruh"));
+    mSocket.on("fart", () => playSound("fart"));
   };
   useEffect(() => {
     onScreenLoad();
