@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import Clock from "../components/homepage/clock";
 import { Stack, useRouter } from "expo-router";
@@ -12,6 +13,8 @@ import JoinCode from "../components/homepage/joinCode";
 import SetAlarmBtn from "../components/homepage/setAlarmBtn";
 import TimePicker from "../components/homepage/timePicker";
 import { useState } from "react";
+import { Link } from "expo-router";
+import SoundBoard from "../components/soundboard/soundboard";
 
 const styles = StyleSheet.create({
   buttonText: (buttonType, item) => ({
@@ -64,6 +67,9 @@ const Home = () => {
           <SetAlarmBtn name="Join" />
         </View>
       )}
+      {/*<ScrollView>
+        <SoundBoard />
+      </ScrollView>*/}
     </SafeAreaView>
   );
 };
