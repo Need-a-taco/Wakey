@@ -1,6 +1,7 @@
 import { View, Text, SafeAreaView } from "react-native";
 import Clock from "../components/homepage/clock";
 import { Stack, useRouter } from "expo-router";
+import InputField from "../components/homepage/inputField";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         }}
       />
       <Clock />
+      <InputField />
     </SafeAreaView>
   );
 };
