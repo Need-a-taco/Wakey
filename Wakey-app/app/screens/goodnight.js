@@ -44,7 +44,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        paddingTop: 6
+    },
+    first: {
+        fontSize: 20,
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        paddingTop: 125
     }
 })
 
@@ -60,7 +68,8 @@ const Goodnight = () => {
                     .from('alarms')
                     .select('wakey_time')
                     .eq('alarm_code', code);
-
+                
+                console.log(data)
                 const dateObj = new Date(data[0].wakey_time);
                 const hours = String(dateObj.getHours()).padStart(2, '0');
                 const minutes = String(dateObj.getMinutes()).padStart(2, '0');
@@ -82,7 +91,7 @@ const Goodnight = () => {
         <Clock />
         
         <View>
-        <Text style={styles.textPrompt}>
+        <Text style={styles.first}>
             Goodnight, sleep tight! 
         </Text>
         <Text style={styles.textPrompt}>
