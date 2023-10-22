@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   textPrompt: {
-    color: "white",
+    color: "#dae5f0",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -56,8 +56,7 @@ const JoinCode = (props) => {
           onChangeText={(text) => {
             setAlarmCode(text);
             props.onCodeChange(text);
-          }
-          }
+          }}
           placeholder="Enter alarm code"
         />
       </View>

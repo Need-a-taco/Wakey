@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#1d1e1f",
+    backgroundColor: "#021629",
   },
   wrapper: {
     marginTop: "60%",
@@ -62,11 +62,11 @@ const WakeyWakey = () => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-          <TouchableWithoutFeedback>
-            <Animated.Text style={[styles.text, { color: textColor }]}>
-              WAKEY WAKEY
-            </Animated.Text>
-          </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback>
+          <Animated.Text style={[styles.text, { color: textColor }]}>
+            WAKEY WAKEY
+          </Animated.Text>
+        </TouchableWithoutFeedback>
       </View>
       <PlayPauseAlarm myCode={code} />
     </View>

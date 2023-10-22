@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   textPrompt: {
-    color: "white",
+    color: "#dae5f0",
     fontWeight: "bold",
     fontSize: 16,
   },

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     color: "#f0f2f5",
   },
   textPrompt: {
-    fontSize: 30,
+    fontSize: 28,
     color: "white",
     textAlign: "center",
     fontWeight: "bold",
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     paddingTop: 10,
-    paddingBottom:20
+    paddingBottom: 20,
   },
 });
 
@@ -72,7 +72,7 @@ const Goodnight = () => {
   const [alarms, setAlarms] = useState(null);
   const [equal, setEqual] = useState(false);
   const [names, setNames] = useState(null);
-  
+
   useEffect(() => {
     const fetchWakeyTime = async () => {
       try {
@@ -95,44 +95,43 @@ const Goodnight = () => {
         setAlarms(stdTime);
         console.log("formatted", alarms);
         setNames(data2);
-
       } catch (err) {
         console.error("Error fetching wakey_time:", err);
         setError(err);
       }
     };
 
-    fetchWakeyTime()
+    fetchWakeyTime();
   }, []);
 
-let timerId;
+  let timerId;
 
-const startTimer = () => {
-  timerId = setInterval(() => {
-    const currentTimeEqualsAlarm = dayjs().format("hh:mm A") === alarms;
-    
-    if (currentTimeEqualsAlarm) {
-      navigateIfValid(true);
-      clearInterval(timerId);
-      setEqual(false);
-      return
-    } else {
-      setEqual(false);  // you can set this to false or remove it if not needed elsewhere
+  const startTimer = () => {
+    timerId = setInterval(() => {
+      const currentTimeEqualsAlarm = dayjs().format("hh:mm A") === alarms;
+
+      if (currentTimeEqualsAlarm) {
+        navigateIfValid(true);
+        clearInterval(timerId);
+        setEqual(false);
+        return;
+      } else {
+        setEqual(false); // you can set this to false or remove it if not needed elsewhere
+      }
+
+      console.log(dayjs().format("hh:mm A"), alarms, equal);
+    }, 5000);
+  };
+
+  useEffect(() => {
+    if (alarms) {
+      startTimer();
     }
 
-    console.log(dayjs().format("hh:mm A"), alarms, equal);
-  }, 5000);
-};
-
-useEffect(() => {
-  if (alarms) {
-    startTimer();
-  }
-
-  return () => {
-    clearInterval(timerId);
-  };
-}, [alarms]);
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [alarms]);
 
   //   date.format("hh:mm A") === toStandardTime(alarms); // dayjs() always gives us the current time
 
@@ -165,7 +164,7 @@ useEffect(() => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#021629" }}>
       <Clock />
 
       <View>
@@ -173,13 +172,23 @@ useEffect(() => {
         <Text style={styles.textPrompt}>Alarm set for {alarms}</Text>
         <Text style={styles.second}>Wakey Code: {code}</Text>
         <View>
-        <FlatList data={names}
-            renderItem={({ item }) => <Text style={{color:"white",textAlign:"center",fontSize:20,marginTop:3}}>{item.name}</Text>}
-        />
+          <FlatList
+            data={names}
+            renderItem={({ item }) => (
+              <Text
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontSize: 20,
+                  marginTop: 3,
+                }}
+              >
+                {item.name}
+              </Text>
+            )}
+          />
+        </View>
       </View>
-        
-      </View>
-      
     </SafeAreaView>
   );
 };

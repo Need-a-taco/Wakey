@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,8 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
+  Animated,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 import { router } from "expo-router";
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     alignContent: "center",
-    backgroundColor: "#1d1e1f",
+    backgroundColor: "#021629",
     flex: 1,
   },
   smallText: {
@@ -51,20 +53,57 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
-    height: 60,
+    //height: 60,
+    alignContent: "center",
   },
   text: {
-    color: "#f0f3f7",
+    color: "#dde6f0",
     fontSize: 23,
     fontWeight: "bold",
     alignItems: "center",
-    marginTop: 18,
+    textAlign: "center",
+    alignContent: "center",
+    padding: 5,
+  },
+  wakeyOver: {
+    margin: 10,
+    alignItems: "center",
+    alignContent: "center",
+    flexDirection: "row",
+    //height: "300px",
   },
 });
 
 const SoundBoard = () => {
   const params = useLocalSearchParams();
   const { code } = params;
+  const colors = [
+    "#dde6f0",
+    "#cfdbe8",
+    "#cfdbe8",
+    "#97b0de",
+    "#97b0de",
+    "#dde6f0",
+  ];
+  // index of colors
+  const colorIndex = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(colorIndex, {
+        toValue: 5,
+        duration: 5000,
+        useNativeDriver: false,
+      }),
+      { iterations: -1 }
+    ).start();
+  }, []);
+  // go through the colors
+  const textColor = colorIndex.interpolate({
+    inputRange: [0, 1, 2, 3, 4, 5],
+    outputRange: colors,
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -75,11 +114,13 @@ const SoundBoard = () => {
         }}
       >
         <Text style={styles.timeText}>It's time to</Text>
-        <Text style={styles.bigText}>Wake Up</Text>
+        <TouchableWithoutFeedback>
+          <Animated.Text style={[styles.bigText, { color: textColor }]}>
+            Wake Up
+          </Animated.Text>
+        </TouchableWithoutFeedback>
       </View>
-      <View style={{ marginTop: "10%", marginBottom: "10%" }}>
-        <Text style={styles.smallText}>Friend 1</Text>
-      </View>
+      <View style={{ marginTop: "10%", marginBottom: "10%" }}></View>
       <View>
         <View style={styles.buttonContainer}>
           <SoundButton buttonType={"trumpet"} alarmCode={code} />
@@ -90,16 +131,16 @@ const SoundBoard = () => {
           <SoundButton buttonType={"fart"} alarmCode={code} />
         </View>
       </View>
-      <View style={styles.buttonContainer}>
+      <View style={styles.wakeyOver}>
         {/* <Link href="/" asChild> */}
-          <TouchableOpacity 
-            style={styles.button}
-            onPress={() => {
-              router.replace({pathname: '/home'});
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            router.replace({ pathname: "/home" });
           }}
-            >
-            <Text style={styles.text}>Wakey Over</Text>
-          </TouchableOpacity>
+        >
+          <Text style={styles.text}>Wakey Over</Text>
+        </TouchableOpacity>
         {/* </Link> */}
       </View>
     </SafeAreaView>
