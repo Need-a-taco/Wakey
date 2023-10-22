@@ -55,6 +55,7 @@ const SetAlarmBtn = (props) => {
           .select();
         console.log(data, error);
         setError(error);
+        addProfile();
         navigateIfValid(true);
       }
       // should add a check here to make sure the created code is unique
@@ -76,6 +77,7 @@ const SetAlarmBtn = (props) => {
         console.log(data);
         setValid(true);
         setAlarmMsg(false);
+        addProfile();
         navigateIfValid(true);
       }
     }
