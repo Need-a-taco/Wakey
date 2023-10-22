@@ -1,4 +1,4 @@
-import { SafeAreaView } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import Clock from "../../components/homepage/clock";
 import {
   StyleSheet,
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     paddingTop: 20,
+    paddingBottom: 20,
   },
   first: {
     fontSize: 17,
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     color: "#cad5e8",
     textAlign: "center",
     fontWeight: "bold",
-    paddingTop: 180,
+    paddingTop: 10,
+    paddingBottom:20
   },
 });
 
@@ -66,22 +68,28 @@ const Goodnight = () => {
   const params = useLocalSearchParams();
   const { code } = params;
   const [alarms, setAlarms] = useState(null);
+  const [names, setNames] = useState(null);
   
   useEffect(() => {
     const fetchWakeyTime = async () => {
       try {
-        let { data, error } = await supabase
+        let { data: data1, error: error1 } = await supabase
           .from("alarms")
           .select("wakey_time")
           .eq("alarm_code", code);
 
-        console.log(data);
-        const dateObj = new Date(data[0].wakey_time);
+        let { data: data2, error: error2 } = await supabase
+          .from("profiles")
+          .select("name")
+          .eq("alarm_code", code);
+
+        const dateObj = new Date(data1[0].wakey_time);
         const hours = String(dateObj.getHours()).padStart(2, "0");
         const minutes = String(dateObj.getMinutes()).padStart(2, "0");
 
         const formattedTime = `${hours}:${minutes}`;
         setAlarms(formattedTime);
+        setNames(data2);
       } catch (err) {
         console.error("Error fetching wakey_time:", err);
         setError(err);
@@ -99,7 +107,14 @@ const Goodnight = () => {
         <Text style={styles.first}>Goodnight, sleep tight!</Text>
         <Text style={styles.textPrompt}>Alarm set for {alarms}</Text>
         <Text style={styles.second}>Wakey Code: {code}</Text>
+        <View>
+        <FlatList data={names}
+            renderItem={({ item }) => <Text style={{color:"white",textAlign:"center",fontSize:20,marginTop:3}}>{item.name}</Text>}
+        />
       </View>
+        
+      </View>
+      
     </SafeAreaView>
   );
 };
