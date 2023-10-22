@@ -95,7 +95,7 @@ const SoundBoard = () => {
           <TouchableOpacity 
             style={styles.button}
             onPress={() => {
-              router.replace({pathname: '/'});
+              router.replace({pathname: '/home'});
           }}
             >
             <Text style={styles.text}>Wakey Over</Text>

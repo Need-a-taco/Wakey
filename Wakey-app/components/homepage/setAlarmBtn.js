@@ -44,8 +44,7 @@ const SetAlarmBtn = (props) => {
         
         if(!data) {
           // add to alarm codes database
-          const { data, error } = await supabase.from('alarms').insert([
-            .from("alarms")
+          const { data, error } = await supabase.from('alarms')
             .insert([
             {
               alarm_code: props.code,
