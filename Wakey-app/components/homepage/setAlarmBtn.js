@@ -5,8 +5,6 @@ import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import "react-native-url-polyfill/auto";
-import { createClient } from "@supabase/supabase-js";
-import { REACT_NATIVE_SUPABASE_URL, SUPABASE_KEY } from "@env";
 import Goodnight from "../../app/screens/goodnight";
 import { router } from "expo-router";
 import { supabase } from "../../config/initSupabase";
@@ -28,23 +26,27 @@ const SetAlarmBtn = (props) => {
         .select("alarm_code")
         .eq("alarm_code", props.code)
         .single(); // Assuming you expect a single result
+  
+    // if there is an error it doesn't exist in the database
+    if (error) {
+      setValid(true)
+      setAlarmMsg(false)
+    } else {
+      // Use the data
+      console.log(data);
+      setValid(false)
+      setAlarmMsg(true)
+    }
 
-      if (error) {
-        setValid(true);
-        setAlarmMsg(false);
-      } else {
-        // Use the data
-        console.log(data);
-        setValid(false);
-        setAlarmMsg(true);
-      }
 
       console.log(data);
 
-      if (!data) {
-        const { data, error } = await supabase
-          .from("alarms")
-          .insert([
+        
+        if(!data) {
+          // add to alarm codes database
+          const { data, error } = await supabase.from('alarms').insert([
+            .from("alarms")
+            .insert([
             {
               alarm_code: props.code,
               set_time: new Date().toISOString().toLocaleString("en-US"),
@@ -111,6 +113,16 @@ const SetAlarmBtn = (props) => {
       fontSize: 17,
     },
   });
+
+  const addProfile = async () => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({ 'alarm_code': props.code })
+      .eq('name', props.profile)
+      .select();
+
+    console.log(data, error);
+  };
 
   return (
     <SafeAreaView>

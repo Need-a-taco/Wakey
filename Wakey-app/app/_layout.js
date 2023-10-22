@@ -6,6 +6,18 @@ const Layout = () => {
       <Stack.Screen
         name="index"
         options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="name"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="home"
+        options={{
           // Hide the header for all other routes.
           headerShown: false,
         }}
