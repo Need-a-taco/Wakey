@@ -40,12 +40,12 @@ const Home = () => {
   const { name } = params;
 
   const [currPage, setCurrPage] = useState("custom");
-  const [joinCodeValue, setJoinCodeValue] = useState(""); 
+  const [joinCodeValue, setJoinCodeValue] = useState("");
   const [customCodeValue, setCustomCodeValue] = useState("");
   const [timeValue, setTimeValue] = useState(Date.now());
 
   return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#021629" }}>
       <Clock />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <TouchableOpacity
@@ -64,14 +64,19 @@ const Home = () => {
       {currPage == "custom" && (
         <View>
           <CustomCode onCodeChange={setCustomCodeValue} />
-          <TimePicker onTimeChange={setTimeValue}/>
-          <SetAlarmBtn name="Set" code={customCodeValue} alarmTime={timeValue} profile={name}/>
+          <TimePicker onTimeChange={setTimeValue} />
+          <SetAlarmBtn
+            name="Set"
+            code={customCodeValue}
+            alarmTime={timeValue}
+            profile={name}
+          />
         </View>
       )}
       {currPage == "join" && (
         <View>
-          <JoinCode onCodeChange={setJoinCodeValue}/>
-          <SetAlarmBtn name="Join" code={joinCodeValue} profile={name}/>
+          <JoinCode onCodeChange={setJoinCodeValue} />
+          <SetAlarmBtn name="Join" code={joinCodeValue} profile={name} />
         </View>
       )}
       {/*<ScrollView>

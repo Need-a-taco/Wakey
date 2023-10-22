@@ -13,7 +13,7 @@ import { router } from "expo-router";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "55%",
+    marginTop: "75%",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: "#C3C3C3",
+    color: "#dae5f0",
 
     fontWeight: "bold",
     fontSize: 20,
