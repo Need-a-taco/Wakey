@@ -12,6 +12,8 @@ import {
 import { useLocalSearchParams } from "expo-router";
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../config/initSupabase";
+import dayjs from "dayjs";
+import { router } from "expo-router";
 
 const styles = StyleSheet.create({
   textPrompt: {
@@ -68,6 +70,7 @@ const Goodnight = () => {
   const params = useLocalSearchParams();
   const { code } = params;
   const [alarms, setAlarms] = useState(null);
+  const [equal, setEqual] = useState(false);
   const [names, setNames] = useState(null);
   
   useEffect(() => {
@@ -88,16 +91,78 @@ const Goodnight = () => {
         const minutes = String(dateObj.getMinutes()).padStart(2, "0");
 
         const formattedTime = `${hours}:${minutes}`;
-        setAlarms(formattedTime);
+        const stdTime = toStandardTime(formattedTime);
+        setAlarms(stdTime);
+        console.log("formatted", alarms);
         setNames(data2);
+
       } catch (err) {
         console.error("Error fetching wakey_time:", err);
         setError(err);
       }
     };
 
-    fetchWakeyTime();
+    fetchWakeyTime()
   }, []);
+
+let timerId;
+
+const startTimer = () => {
+  timerId = setInterval(() => {
+    const currentTimeEqualsAlarm = dayjs().format("hh:mm A") === alarms;
+    
+    if (currentTimeEqualsAlarm) {
+      navigateIfValid(true);
+      clearInterval(timerId);
+      setEqual(false);
+      return
+    } else {
+      setEqual(false);  // you can set this to false or remove it if not needed elsewhere
+    }
+
+    console.log(dayjs().format("hh:mm A"), alarms, equal);
+  }, 5000);
+};
+
+useEffect(() => {
+  if (alarms) {
+    startTimer();
+  }
+
+  return () => {
+    clearInterval(timerId);
+  };
+}, [alarms]);
+
+  //   date.format("hh:mm A") === toStandardTime(alarms); // dayjs() always gives us the current time
+
+  function toStandardTime(time) {
+    const hours = parseInt(time.substring(0, 2), 10);
+    const mins = time.substring(3);
+
+    const period = hours >= 12 ? "PM" : "AM";
+
+    let stdHours = hours % 12;
+    if (stdHours === 0) {
+      stdHours = 12;
+    }
+    if (stdHours <= 9) {
+      stdHours = "0" + stdHours;
+    }
+    return `${stdHours}:${mins} ${period}`;
+  }
+
+  // to go to next screen once alarm rings
+  const navigateIfValid = (shouldBeValid) => {
+    console.log(code);
+
+    if (shouldBeValid) {
+      router.replace({
+        pathname: "/screens/wakeywakey",
+        params: { code: code },
+      });
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>

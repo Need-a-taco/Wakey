@@ -9,6 +9,7 @@ import {
 import { Audio } from "expo-av";
 import { Link } from "expo-router";
 import SocketHandler from "../socketHandler"; // Import your SocketHandler class
+import { router } from "expo-router";
 
 const styles = StyleSheet.create({
   container: {
@@ -96,7 +97,6 @@ const PlayPauseAlarm = ({myCode}) => {
   };
 
   async function playTrumpet() {
-    console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/alarmSFX/trumpet.wav")
     );
@@ -105,7 +105,6 @@ const PlayPauseAlarm = ({myCode}) => {
     await sound.playAsync();
   }
   async function playSiren() {
-    console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/alarmSFX/siren.wav")
     );
@@ -113,7 +112,6 @@ const PlayPauseAlarm = ({myCode}) => {
     await sound.playAsync();
   }
   async function playBruh() {
-    console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/alarmSFX/bruh.wav")
     );
@@ -122,7 +120,6 @@ const PlayPauseAlarm = ({myCode}) => {
     await sound.playAsync();
   }
   async function playFart() {
-    console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/alarmSFX/fart.wav")
     );
@@ -132,7 +129,6 @@ const PlayPauseAlarm = ({myCode}) => {
   }
 
   async function playAlarm() {
-    console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/alarmSFX/AlarmOne.wav")
     );
@@ -166,14 +162,17 @@ const PlayPauseAlarm = ({myCode}) => {
           <Text style={styles.text}>I'm Awake</Text>
         </TouchableOpacity>
       ) : (
-        <Link href="screens/soundboard" asChild>
+        // <Link href="screens/soundboard" asChild>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => setInitialLoad(false)}
+            onPress={() => {
+              setInitialLoad(false);
+              router.replace({pathname: 'screens/soundboard'});
+          }}
           >
             <Text style={styles.text}>Wake Up Friends</Text>
           </TouchableOpacity>
-        </Link>
+        // </Link>
       )}
     </View>
   );

@@ -26,7 +26,7 @@ const Layout = () => {
         name="screens/goodnight"
         options={{
           headerShown: false,
-          //presentation: "modal",
+          presentation: "modal",
         }}
       />
       <Stack.Screen

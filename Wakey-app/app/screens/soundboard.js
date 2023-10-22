@@ -8,9 +8,10 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 
 import SoundButton from "../../components/soundboard/soundButtons";
 
@@ -44,20 +45,20 @@ const styles = StyleSheet.create({
     marginRight: 50,
     marginLeft: 50,
     marginTop: 120,
-    paddingTop: 10,
-    paddingBottom: 10,
     width: "60%",
     backgroundColor: "#4A5358",
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "white",
     alignItems: "center",
-    height: 47,
+    height: 60,
   },
   text: {
     color: "#f0f3f7",
-    fontSize: 18,
+    fontSize: 23,
     fontWeight: "bold",
+    alignItems: "center",
+    marginTop: 18,
   },
 });
 
@@ -89,12 +90,17 @@ const SoundBoard = () => {
           <SoundButton buttonType={"fart"} alarmCode={code} />
         </View>
       </View>
-      <View style={styles.button}>
-        <Link href="/" asChild style={{ marginTop: "20%" }}>
-          <TouchableWithoutFeedback style={styles.button}>
+      <View style={styles.buttonContainer}>
+        {/* <Link href="/" asChild> */}
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => {
+              router.replace({pathname: '/'});
+          }}
+            >
             <Text style={styles.text}>Wakey Over</Text>
-          </TouchableWithoutFeedback>
-        </Link>
+          </TouchableOpacity>
+        {/* </Link> */}
       </View>
     </SafeAreaView>
   );
