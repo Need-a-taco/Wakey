@@ -8,7 +8,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 
@@ -91,9 +91,9 @@ const SoundBoard = () => {
       </View>
       <View style={styles.button}>
         <Link href="/" asChild style={{ marginTop: "20%" }}>
-          <TouchableWithoutFeedback style={styles.button}>
+          <TouchableOpacity style={{ height: 50 }}>
             <Text style={styles.text}>Wakey Over</Text>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Link>
       </View>
     </SafeAreaView>
