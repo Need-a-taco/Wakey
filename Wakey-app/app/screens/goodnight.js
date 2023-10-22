@@ -69,7 +69,7 @@ const Goodnight = () => {
                     .select('wakey_time')
                     .eq('alarm_code', code);
                 
-                console.log(data)
+                console.log("this", data)
                 const dateObj = new Date(data[0].wakey_time);
                 const hours = String(dateObj.getHours()).padStart(2, '0');
                 const minutes = String(dateObj.getMinutes()).padStart(2, '0');
