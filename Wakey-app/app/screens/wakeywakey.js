@@ -8,6 +8,7 @@ import {
 import { Link, useLocalSearchParams } from "expo-router";
 import { Audio } from "expo-av";
 import PlayPauseAlarm from "../../components/wakeypage/playPauseAlarm";
+import { router } from "expo-router";
 
 const styles = StyleSheet.create({
   container: {
@@ -61,19 +62,11 @@ const WakeyWakey = () => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Link
-          href={{
-            pathname: "/screens/soundboard",
-            params: { code: code },
-          }}
-          asChild
-        >
           <TouchableWithoutFeedback>
             <Animated.Text style={[styles.text, { color: textColor }]}>
               WAKEY WAKEY
             </Animated.Text>
           </TouchableWithoutFeedback>
-        </Link>
       </View>
       <PlayPauseAlarm myCode={code} />
     </View>

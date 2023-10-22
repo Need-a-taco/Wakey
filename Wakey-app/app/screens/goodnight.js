@@ -93,29 +93,37 @@ const Goodnight = () => {
       }
     };
 
-    fetchWakeyTime().then(() => {
-      startTimer();
-    });
-    return () => {
-      clearInterval(timerId);
-    };
+    fetchWakeyTime()
   }, []);
 
-  let timerId;
+let timerId;
 
-  const startTimer = () => {
-    timerId = setInterval(() => {
-      if (equal) {
-        navigateIfValid(equal);
-        clearInterval(timerId);
-        setEqual(false);
-      }
-      setEqual(dayjs().format("hh:mm A") === alarms);
-      console.log(dayjs().format("hh:mm A"), alarms, equal);
-    }, 5000);
-    console.log(timerId);
-    return () => clearInterval(timerId);
+const startTimer = () => {
+  timerId = setInterval(() => {
+    const currentTimeEqualsAlarm = dayjs().format("hh:mm A") === alarms;
+    
+    if (currentTimeEqualsAlarm) {
+      navigateIfValid(true);
+      clearInterval(timerId);
+      setEqual(false);
+      return
+    } else {
+      setEqual(false);  // you can set this to false or remove it if not needed elsewhere
+    }
+
+    console.log(dayjs().format("hh:mm A"), alarms, equal);
+  }, 5000);
+};
+
+useEffect(() => {
+  if (alarms) {
+    startTimer();
+  }
+
+  return () => {
+    clearInterval(timerId);
   };
+}, [alarms]);
 
   //   date.format("hh:mm A") === toStandardTime(alarms); // dayjs() always gives us the current time
 
@@ -144,11 +152,8 @@ const Goodnight = () => {
         pathname: "/screens/wakeywakey",
         params: { code: code },
       });
-      return;
     }
   };
-
-  startTimer();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
