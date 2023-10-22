@@ -40,6 +40,7 @@ const SetAlarmBtn = (props) => {
         console.log(data);
         
         if(!data) {
+          // add to alarm codes database
           const { data, error } = await supabase.from('alarms').insert([
             {
               alarm_code: props.code,
@@ -48,9 +49,10 @@ const SetAlarmBtn = (props) => {
             },
             ])
             .select();
-            console.log(data, error);
-            setError(error);
-            navigateIfValid(true);
+          console.log(data, error);
+          setError(error);
+          addProfile();
+          navigateIfValid(true);
         }
         // should add a check here to make sure the created code is unique
         else {
@@ -59,6 +61,7 @@ const SetAlarmBtn = (props) => {
             
     }
     else {
+      // if it already exists then it is valid
       let { data, error } = await supabase
       .from('alarms')
       .select('alarm_code')
@@ -71,8 +74,9 @@ const SetAlarmBtn = (props) => {
     } else {
       // Use the data
       console.log(data);
-      setValid(true)
-      setAlarmMsg(false)
+      setValid(true);
+      setAlarmMsg(false);
+      addProfile();
       navigateIfValid(true);
     }
     }
@@ -102,9 +106,20 @@ const SetAlarmBtn = (props) => {
 
   const navigateIfValid = (shouldBeValid) => {
     console.log(props.code, error);
+
     if (shouldBeValid) {
       router.replace({pathname: '/screens/goodnight', params: {code: props.code}});
     }
+  };
+
+  const addProfile = async () => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({ 'alarm_code': props.code })
+      .eq('name', props.profile)
+      .select();
+
+    console.log(data, error);
   };
 
   return (
