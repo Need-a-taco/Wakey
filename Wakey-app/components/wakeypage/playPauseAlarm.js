@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Audio } from "expo-av";
 import { Link } from "expo-router";
+import SocketHandler from "../socketHandler"; // Import your SocketHandler class
 
 const styles = StyleSheet.create({
   container: {
@@ -37,19 +38,98 @@ const styles = StyleSheet.create({
   },
 });
 
-const PlayPauseAlarm = () => {
+const PlayPauseAlarm = ({myCode}) => {
   const [onLoadText, setText] = useState("");
   const [initialLoad, setInitialLoad] = useState(true);
+  const mSocket = SocketHandler.sharedInstance.getSocket();
 
   const onScreenLoad = () => {
     setText("");
     playAlarm();
+    SocketHandler.sharedInstance.establishConnection();
+
+    mSocket.on("trumpet", (data) => {
+      console.log("HERHERHERHE", data, myCode);
+      if (data === myCode) {
+        playSound("trumpet");
+      }
+    });
+    mSocket.on("siren", (data) => {
+      if (data === myCode) {
+        playSound("siren");
+      }
+    });
+    mSocket.on("bruh", (data) => {
+      if (data === myCode) {
+        playSound("bruh");
+      }
+    });
+
+    mSocket.on("fart", (data) => {
+      if (data === myCode) {
+        playSound("fart");
+      }
+    });
   };
   useEffect(() => {
     onScreenLoad();
   }, []);
 
   const [sound, setSound] = useState();
+  const playSound = (str) => {
+    switch (str) {
+      case "trumpet":
+        playTrumpet();
+        break;
+      case "siren":
+        playSiren();
+        break;
+      case "bruh":
+        playBruh();
+        break;
+      case "fart":
+        playFart();
+        break;
+      default:
+        break;
+    }
+  };
+
+  async function playTrumpet() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/alarmSFX/trumpet.wav")
+    );
+    setSound(sound);
+
+    await sound.playAsync();
+  }
+  async function playSiren() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/alarmSFX/siren.wav")
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+  async function playBruh() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/alarmSFX/bruh.wav")
+    );
+    setSound(sound);
+
+    await sound.playAsync();
+  }
+  async function playFart() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/alarmSFX/fart.wav")
+    );
+    setSound(sound);
+
+    await sound.playAsync();
+  }
 
   async function playAlarm() {
     console.log("Loading Sound");

@@ -5,7 +5,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Audio } from "expo-av";
 import PlayPauseAlarm from "../../components/wakeypage/playPauseAlarm";
 
@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
 });
 
 const WakeyWakey = () => {
+  const params = useLocalSearchParams();
+  const { code } = params;
   // colors we have
   const colors = ["white", "red", "green", "green", "red", "white"];
   // index of colors
@@ -59,7 +61,13 @@ const WakeyWakey = () => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Link href="screens/soundboard" asChild>
+        <Link
+          href={{
+            pathname: "/screens/soundboard",
+            params: { code: code },
+          }}
+          asChild
+        >
           <TouchableWithoutFeedback>
             <Animated.Text style={[styles.text, { color: textColor }]}>
               WAKEY WAKEY
@@ -67,7 +75,7 @@ const WakeyWakey = () => {
           </TouchableWithoutFeedback>
         </Link>
       </View>
-      <PlayPauseAlarm />
+      <PlayPauseAlarm myCode={code} />
     </View>
   );
 };

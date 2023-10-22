@@ -10,24 +10,9 @@ import {
     TextInput,
   } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../../config/initSupabase';
 
-const Goodnight = () => {
-    const params = useLocalSearchParams();
-    const { code } = params;
-
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
-        <Clock />
-        
-        <View>
-        <Text style={styles.textPrompt}>
-            Goodnight, sleep tight!
-        </Text>
-        </View>
-    </SafeAreaView>
-    
-  );
-};
 
 const styles = StyleSheet.create({
     textPrompt: {
@@ -62,5 +47,51 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 })
+
+const Goodnight = () => {
+    const params = useLocalSearchParams();
+    const { code } = params;
+    const [alarms, setAlarms] = useState(null);
+
+    useEffect(() => {
+        const fetchWakeyTime = async () => {
+            try {
+                let { data, error } = await supabase
+                    .from('alarms')
+                    .select('wakey_time')
+                    .eq('alarm_code', code);
+
+                const dateObj = new Date(data[0].wakey_time);
+                const hours = String(dateObj.getHours()).padStart(2, '0');
+                const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+
+                const formattedTime = `${hours}:${minutes}`;
+                setAlarms(formattedTime);
+            } catch (err) {
+                console.error("Error fetching wakey_time:", err);
+                setError(err);
+            }
+        }
+
+        fetchWakeyTime();
+    }, []);
+
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#1d1e1f" }}>
+        <Clock />
+        
+        <View>
+        <Text style={styles.textPrompt}>
+            Goodnight, sleep tight! 
+        </Text>
+        <Text style={styles.textPrompt}>
+            Alarm set for { alarms }
+        </Text>
+        </View>
+    </SafeAreaView>
+    
+  );
+};
 
 export default Goodnight;

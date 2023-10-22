@@ -1,3 +1,5 @@
+
+import { Button } from "react-native";
 import { View, Text } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
@@ -8,10 +10,7 @@ import { createClient } from "@supabase/supabase-js";
 import { REACT_NATIVE_SUPABASE_URL, SUPABASE_KEY } from "@env";
 import Goodnight from "../../app/screens/goodnight";
 import {router} from "expo-router"
-
-const supabaseUrl = REACT_NATIVE_SUPABASE_URL;
-const supabaseKey = SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from "../../config/initSupabase";
 
 const SetAlarmBtn = (props) => {
   const [error, setError] = useState(null);
@@ -75,6 +74,7 @@ const SetAlarmBtn = (props) => {
       setValid(true)
       setAlarmMsg(false)
     }
+
     }
   };
 
@@ -105,12 +105,12 @@ const SetAlarmBtn = (props) => {
         <TouchableOpacity
         style={styles.button} onPress={switchGoodnight} disabled={!props.code}>
           <Text style={styles.loginText}>{props.name} Alarm</Text>
-          {valid && router.push({pathname: '/screens/goodnight', params: {code:props.code}})}
-          
-      </TouchableOpacity>
+          {valid && router.push({pathname: '/screens/goodnight', params: {code:props.code}})}  
+        </TouchableOpacity>
       {alarmMsg && <Text style={{color: "red", textAlign:"center", marginTop:20,fontSize:17}}>{message}</Text>}
     </SafeAreaView>
   );
 };
 
 export default SetAlarmBtn;
+
