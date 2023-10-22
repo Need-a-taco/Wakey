@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PlayPauseAlarm = ({myCode}) => {
+const PlayPauseAlarm = ({ myCode }) => {
   const [onLoadText, setText] = useState("");
   const [initialLoad, setInitialLoad] = useState(true);
   const mSocket = SocketHandler.sharedInstance.getSocket();
@@ -163,15 +163,18 @@ const PlayPauseAlarm = ({myCode}) => {
         </TouchableOpacity>
       ) : (
         // <Link href="screens/soundboard" asChild>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setInitialLoad(false);
-              router.replace({pathname: 'screens/soundboard'});
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            setInitialLoad(false);
+            router.replace({
+              pathname: "screens/soundboard",
+              params: { code: myCode },
+            });
           }}
-          >
-            <Text style={styles.text}>Wake Up Friends</Text>
-          </TouchableOpacity>
+        >
+          <Text style={styles.text}>Wake Up Friends</Text>
+        </TouchableOpacity>
         // </Link>
       )}
     </View>

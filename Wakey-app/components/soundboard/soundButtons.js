@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 const SoundButton = ({ buttonType, alarmCode }) => {
-  const code = alarmCode;  
+  const code = alarmCode;
   var mSocket = SocketHandler.sharedInstance.getSocket();
   SocketHandler.sharedInstance.establishConnection(); // not sure this will work without component mount
 
@@ -57,7 +57,7 @@ const SoundButton = ({ buttonType, alarmCode }) => {
   }
 
   const [sound, setSound] = useState();
-
+  console.log("sound button code status,", code);
   const playSound = () => {
     switch (buttonType) {
       case "trumpet":
