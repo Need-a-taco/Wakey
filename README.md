@@ -1,0 +1,12 @@
+# Wakey
+## The first social alarm clock app!
+
+### What it does
+Users sync their alarm up with their trusted peers to form a pact each morning to make sure that each member of the group wakes up at their designated time. One user sets an alarm code with a common wakeup time associated with this alarm code. The user's peers can use this alarm code to join their alarm group. Everybody in the alarm group will experience the same alarm in the morning. After each user hits the button when they wake up, they are sent to a soundboard interface, where they can hit buttons to send try to wake those that are still sleeping with real time sound effects. Each time one user in the server hits a sound effect button, that sound registers on every device, including their own device to provide auditory feedback that they have indeed successfully sent a sound effect. Ultimately, users exit the soundboard to leave the live alarm server and go back to the home screen of the app. They can finally start their day!
+
+### How We Built It
+We built this app using React Native as a frontend, Node.js as the server, and Supabase as the database. We created files for the different screens that users will interact with in the front end, namely the home screen, goodnight screen, wakeup screen, and the soundboard. The home screen is where they set an alarm code or join using someone else's alarm code. The "goodnight screen" is what screen the app will be on while the user sleeps. When the app is on, it displays the current time, when the alarm is set to go off, who else is in the alarm server, and a warm message, "Goodnight, sleep tight!". Each one of these screens went through its own UX design process. We also used Socket.io to establish connections between those in the same alarm group. When a user sends a sound effect, it would go to the server which would be sent to all the users in the group. As for the backend, we used Supabase as a database to store the users, alarm codes, current time, and the wake up times. We connected the front and back end and the app came together. All of this was tested on our own phones using Expo.
+
+### How to Use It
+Just run "npm install" for the "Wakey-app" and the "Wakey-backend." Then, run "npm start" for the Wakey-backend to start the backend server. Then, run
+"npm start" on Wakey-app to startup the app. The app can be demoed using the expos app. Best tried with friends!

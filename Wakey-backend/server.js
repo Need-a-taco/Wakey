@@ -2,7 +2,7 @@ const express = require("express"); //requires express module
 const socket = require("socket.io"); //requires socket.io module
 const fs = require("fs");
 const app = express();
-var IP = process.env.IP || "172.20.10.9";
+var IP = process.env.IP || "172.20.10.5";
 var PORT = process.env.PORT || 4000;
 const server = app.listen(PORT, IP); //tells to host server on localhost:3000
 
