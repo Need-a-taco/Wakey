@@ -66,7 +66,7 @@ const Goodnight = () => {
   const params = useLocalSearchParams();
   const { code } = params;
   const [alarms, setAlarms] = useState(null);
-
+  
   useEffect(() => {
     const fetchWakeyTime = async () => {
       try {

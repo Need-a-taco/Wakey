@@ -6,11 +6,10 @@ import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import "react-native-url-polyfill/auto";
-import { createClient } from "@supabase/supabase-js";
-import { REACT_NATIVE_SUPABASE_URL, SUPABASE_KEY } from "@env";
 import Goodnight from "../../app/screens/goodnight";
 import {router} from "expo-router"
 import { supabase } from "../../config/initSupabase";
+import { useEffect } from "react";
 
 const SetAlarmBtn = (props) => {
   const [error, setError] = useState(null);
@@ -27,6 +26,7 @@ const SetAlarmBtn = (props) => {
       .eq('alarm_code', props.code)
       .single();  // Assuming you expect a single result
   
+    // if there is an error it doesn't exist in the database
     if (error) {
       setValid(true)
       setAlarmMsg(false)
@@ -50,7 +50,7 @@ const SetAlarmBtn = (props) => {
             .select();
             console.log(data, error);
             setError(error);
-            
+            navigateIfValid(true);
         }
         // should add a check here to make sure the created code is unique
         else {
@@ -73,8 +73,8 @@ const SetAlarmBtn = (props) => {
       console.log(data);
       setValid(true)
       setAlarmMsg(false)
+      navigateIfValid(true);
     }
-
     }
   };
 
@@ -100,12 +100,19 @@ const SetAlarmBtn = (props) => {
     },
   });
 
+  const navigateIfValid = (shouldBeValid) => {
+    console.log(props.code, error);
+    if (shouldBeValid) {
+      router.replace({pathname: '/screens/goodnight', params: {code: props.code}});
+    }
+  };
+
   return (
     <SafeAreaView>
         <TouchableOpacity
         style={styles.button} onPress={switchGoodnight} disabled={!props.code}>
           <Text style={styles.loginText}>{props.name} Alarm</Text>
-          {valid && router.push({pathname: '/screens/goodnight', params: {code:props.code}})}  
+          {/* {valid && router.replace({pathname: '/screens/goodnight', params: {code:props.code}})}   */}
         </TouchableOpacity>
       {alarmMsg && <Text style={{color: "red", textAlign:"center", marginTop:20,fontSize:17}}>{message}</Text>}
     </SafeAreaView>
